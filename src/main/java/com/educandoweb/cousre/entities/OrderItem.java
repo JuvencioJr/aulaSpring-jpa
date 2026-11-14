@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.educandoweb.cousre.entities.pk.OrderItemPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private OrderItemPk orderItemPk;
+	private OrderItemPk orderItemPk = new OrderItemPk();
 	
 	private Integer quantity;
 	private Double price;
@@ -25,7 +26,7 @@ public class OrderItem implements Serializable{
 	}
 
 	//Nesse construtor os argumentos product e order foram inseridos manualmente
-	public OrderItem(Product product, Order order,  Integer quantity, Double price) {
+	public OrderItem( Order order,Product product,  Integer quantity, Double price) {
 		super();
 		this.quantity = quantity;
 		this.price = price;
@@ -58,6 +59,7 @@ public class OrderItem implements Serializable{
 		orderItemPk.setProduct(product);
 	}
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return orderItemPk.getOrder();
 	}
