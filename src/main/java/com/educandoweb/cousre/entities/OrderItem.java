@@ -51,6 +51,7 @@ public class OrderItem implements Serializable{
 	}
 	
 	//OS GETERS E SETERS DOS PRODUTOS E PEDIDOS FORAM CRIADOS MANUALMENTE PARA PODER ACESSAR O PRODUCTO E ORDER DA ORDERITEMPK
+	
 	public Product getProduct() {
 		return orderItemPk.getProduct();
 	}
