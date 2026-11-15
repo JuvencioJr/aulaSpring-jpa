@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,11 +41,11 @@ public class UserResouces {
 	
 	@PostMapping
 	public ResponseEntity<User>insert(@RequestBody User obj){
-	User Obj= service.insert(obj);
+	User newUser= service.insert(obj);
 	//devemos criar uma instruçao para que o http retorne o codigo 201 created em vez de 200 ok
-	URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(Obj.getId()).toUri();
+	URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId()).toUri();
 	
-		return ResponseEntity.created(uri).body(Obj);
+		return ResponseEntity.created(uri).body(newUser);
 				
 	}
 	
@@ -52,6 +53,12 @@ public class UserResouces {
 	public ResponseEntity<Void>deleteById(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value="/{id}")
+	public ResponseEntity<User>updateById(@PathVariable Long id, @RequestBody User obj){
+		User updatedUser =service.update(id, obj);
+		return ResponseEntity.ok().body(updatedUser);
 	}
 }
 	
