@@ -68,6 +68,10 @@ public class OrderItem implements Serializable{
 	public void setOrder(Order order) {
 		orderItemPk.setOrder(order);
 	}
+	
+	public Double getSubtotal() {
+		return price * quantity;
+	}
 
 	@Override
 	public int hashCode() {
